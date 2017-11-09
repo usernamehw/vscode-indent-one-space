@@ -8,14 +8,14 @@
     "icon": "images/icon.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/usernamehw/indent-one-space"
+        "url": "https://github.com/usernamehw/vscode-indent-one-space"
     },
     "galleryBanner": {
         "theme": "dark",
         "color": "#333333"
     },
     "bugs": {
-        "url": "https://github.com/usernamehw/indent-one-space/issues"
+        "url": "https://github.com/usernamehw/vscode-indent-one-space/issues"
     },
     "engines": {
         "vscode": "^1.17.0"
