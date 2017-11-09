@@ -1,0 +1,88 @@
+{
+    "name": "indent-one-space",
+    "displayName": "Indent one space",
+    "description": "Move code to left or right with a distance of one whitespace",
+    "version": "0.0.1",
+    "publisher": "usernamehw",
+    "license": "MIT",
+    "icon": "images/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/usernamehw/indent-one-space"
+    },
+    "galleryBanner": {
+        "theme": "dark",
+        "color": "#333333"
+    },
+    "bugs": {
+        "url": "https://github.com/usernamehw/indent-one-space/issues"
+    },
+    "engines": {
+        "vscode": "^1.17.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "indent",
+        "indentation"
+    ],
+    "activationEvents": [
+        "onCommand:extension.indentOneSpace",
+        "onCommand:extension.reverseIndentOneSpace"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "",
+            "properties": {
+                "indentOneSpace.workOnSingleLine": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "When set to `true` command will execute even when only 1 line is selected"
+                },
+                "indentOneSpace.cramReversed": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "TODO: write description"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "extension.indentOneSpace",
+                "title": "Indent one space"
+            },
+            {
+                "command": "extension.reverseIndentOneSpace",
+                "title": "Reverse indent one space"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.indentOneSpace",
+                "key": "space",
+                "when": "editorTextFocus && !editorReadOnly && editorHasSelection"
+            },
+            {
+                "command": "extension.reverseIndentOneSpace",
+                "key": "shift+space",
+                "when": "editorTextFocus && !editorReadOnly && editorHasSelection"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.5.3",
+        "vscode": "^1.1.5",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
