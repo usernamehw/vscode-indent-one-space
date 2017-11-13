@@ -14,8 +14,11 @@ function indentOneSpace(isReverse: boolean) {
 
     editor.edit(builder => {
         for (const selection of editor.selections) {
-            const start = selection.start;
+            let start = selection.start;
             let end = selection.end;
+            const active = selection.active;
+            const isSelectionStartHasCursor = start.line === active.line && start.character === active.character;
+
             const isSingleLineSelection = start.line === end.line;
 
             if (isOneSelection && isSingleLineSelection && !isWorkOnSingleLine) return;
@@ -36,6 +39,10 @@ function indentOneSpace(isReverse: boolean) {
                 // Move left
                 if (!isCramReversed && lines.some(line => line[0] !== ' ')) {
                     // vscode.window.showInformationMessage('Cram disabled!');// Dev notification
+                    if (isSelectionStartHasCursor) {
+                        [start, end] = [end, start];
+                    }
+
                     newSelections.push(new Selection(start, end));// preserve old selection
                     continue;
                 }
@@ -51,15 +58,34 @@ function indentOneSpace(isReverse: boolean) {
 
                 builder.replace(range, shiftedLines.join('\n'));
 
-                const isStartMoved = lines[0].length !== shiftedLines[0].length;
-                const isEndMoved = lines[lines.length - 1].length !== shiftedLines[shiftedLines.length - 1].length;
+                let isStartMoved;
+                let isEndMoved;
+                let newStartChar;
+                let newEndChar;
 
-                let newStartChar = isStartMoved ? start.character - 1 : start.character;
-                let newEndChar = isEndMoved ? end.character - 1 : end.character;
+                if (isSelectionStartHasCursor) {
+                    [start, end] = [end, start];
+                    isStartMoved = lines[lines.length - 1].length !== shiftedLines[shiftedLines.length - 1].length;
+                    isEndMoved = lines[0].length !== shiftedLines[0].length;
 
-                if (newStartChar === -1) {// when selection hits gutter preserve old selection
-                    newStartChar = 0;
-                    newEndChar = end.character;
+                    newStartChar = isStartMoved ? start.character - 1 : start.character;
+                    newEndChar = isEndMoved ? end.character - 1 : end.character;
+
+                    if (newEndChar === -1) {
+                        newEndChar = 0;
+                        newStartChar = start.character;
+                    }
+                } else {
+                    isStartMoved = lines[0].length !== shiftedLines[0].length;
+                    isEndMoved = lines[lines.length - 1].length !== shiftedLines[shiftedLines.length - 1].length;
+
+                    newStartChar = isStartMoved ? start.character - 1 : start.character;
+                    newEndChar = isEndMoved ? end.character - 1 : end.character;
+
+                    if (newStartChar === -1) {// when selection hits gutter preserve old selection
+                        newStartChar = 0;
+                        newEndChar = end.character;
+                    }
                 }
 
                 newSelections.push(new Selection(
@@ -70,6 +96,10 @@ function indentOneSpace(isReverse: boolean) {
                 // Move right
                 builder.replace(range, lines.map(line => ` ${line}`).join('\n'));
 
+                if (isSelectionStartHasCursor) {
+                    [start, end] = [end, start];
+                }
+
                 newSelections.push(new Selection(
                     start.line, start.character + 1,
                     end.line, end.character + 1
@@ -77,8 +107,6 @@ function indentOneSpace(isReverse: boolean) {
             }
         }
     });
-
-    console.log(newSelections, newSelections.length, newSelections.length === 1);
 
     editor.selections = newSelections;
 }
@@ -90,5 +118,4 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(disposable1, disposable2);
 }
 
-export function deactivate() {
-}
+export function deactivate() {}
