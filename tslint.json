@@ -87,7 +87,7 @@
         "no-string-throw": true,
         "no-use-before-declare": true,
         "use-isnan": true,
-        "cyclomatic-complexity": [true, 20],
+        "cyclomatic-complexity": [false, 20],
         "max-classes-per-file": [true, 1],
         "jsdoc-format": true,
         "newline-before-return": true,
