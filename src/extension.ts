@@ -18,27 +18,21 @@ function indentOneSpace(isReverse: boolean) {
             let end = selection.end;
             const active = selection.active;
             const isSelectionStartHasCursor = start.line === active.line && start.character === active.character;
-
             const isSingleLineSelection = start.line === end.line;
 
             if (isOneSelection && isSingleLineSelection && !isWorkOnSingleLine) return;
 
-            if (isReverse && end.character === 0) {
-                end = new Position(end.line, 1);
-            }
+            if (isReverse) {// Move left
+                const lines: Array<vscode.TextLine> = [];
+                let isStartLineShifted = false;
+                let isEndLineShifted = false;
 
-            const range = new Range(
-                new Position(start.line, 0),
-                new Position(end.line, end.character)
-            );
+                for (let i = start.line; i <= end.line; i++) {
+                    lines.push(editor.document.lineAt(i));
+                }
 
-            const lines = editor.document.getText(range)
-                .split('\n');
-
-            if (isReverse) {
-                // Move left
-                if (!isCramReversed && lines.some(line => line[0] !== ' ')) {
-                    // vscode.window.showInformationMessage('Cram disabled!');// Dev notification
+                if (!isCramReversed && lines.some(line => line.text[0] !== ' ')) {
+                    vscode.window.showInformationMessage('Cram disabled!');// Dev notification
                     if (isSelectionStartHasCursor) {
                         [start, end] = [end, start];
                     }
@@ -46,55 +40,60 @@ function indentOneSpace(isReverse: boolean) {
                     newSelections.push(new Selection(start, end));// preserve old selection
                     continue;
                 }
-                // if (lines.every(line => line[0] !== ' ') && end.character !== 0) {
-                //     vscode.window.showInformationMessage('Nothing to cram!');// Dev notification
-                // }
 
-                const shiftedLines = lines.map(line => {
-                    if (!line.length) return '';// when cursor on 0 character
+                if (lines.every(line => line.text[0] !== ' ') && end.character !== 0) {
+                    // vscode.window.showInformationMessage('Nothing to cram!');// Dev notification
+                    if (isSelectionStartHasCursor) {
+                        [start, end] = [end, start];
+                    }
 
-                    return (line[0] === ' ' ? '' : line[0]) + line.slice(1);
+                    newSelections.push(new Selection(start, end));
+                    continue;
+                }
+
+                lines.forEach((line, i) => {
+                    if (line.text[0] === ' ') {
+                        if (i === 0) isStartLineShifted = true;
+                        if (i === lines.length - 1) isEndLineShifted = true;
+
+                        builder.delete(new Range(line.lineNumber, 0, line.lineNumber, 1));
+                    }
                 });
-
-                builder.replace(range, shiftedLines.join('\n'));
-
-                let isStartMoved;
-                let isEndMoved;
-                let newStartChar;
-                let newEndChar;
 
                 if (isSelectionStartHasCursor) {
                     [start, end] = [end, start];
-                    isStartMoved = lines[lines.length - 1].length !== shiftedLines[shiftedLines.length - 1].length;
-                    isEndMoved = lines[0].length !== shiftedLines[0].length;
+                }
 
-                    newStartChar = isStartMoved ? start.character - 1 : start.character;
-                    newEndChar = isEndMoved ? end.character - 1 : end.character;
+                let newEndChar = end.character;
+                let newStartChar = start.character;
 
+                if (isStartLineShifted) {
+                    newEndChar = end.character - 1;
+                }
+                if (isEndLineShifted) {
+                    newStartChar = start.character - 1;
+                }
+
+                if (isSingleLineSelection) {
                     if (newEndChar === -1) {
-                        newEndChar = 0;
-                        newStartChar = start.character;
+                        newStartChar = newStartChar + 1;
                     }
-                } else {
-                    isStartMoved = lines[0].length !== shiftedLines[0].length;
-                    isEndMoved = lines[lines.length - 1].length !== shiftedLines[shiftedLines.length - 1].length;
-
-                    newStartChar = isStartMoved ? start.character - 1 : start.character;
-                    newEndChar = isEndMoved ? end.character - 1 : end.character;
-
-                    if (newStartChar === -1) {// when selection hits gutter preserve old selection
-                        newStartChar = 0;
-                        newEndChar = end.character;
+                    if (newStartChar === -1) {
+                        newEndChar = newEndChar + 1;
                     }
                 }
+
+                if (newStartChar === -1) newStartChar = 0;
+                if (newEndChar === -1) newEndChar = 0;
 
                 newSelections.push(new Selection(
                     start.line, newStartChar,
                     end.line, newEndChar
                 ));
-            } else {
-                // Move right
-                builder.replace(range, lines.map(line => ` ${line}`).join('\n'));
+            } else {// Move right
+                for (let i = start.line; i <= end.line; i++) {
+                    builder.insert(new Position(i, 0), ' ');
+                }
 
                 if (isSelectionStartHasCursor) {
                     [start, end] = [end, start];
@@ -118,4 +117,4 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(disposable1, disposable2);
 }
 
-export function deactivate() {}
+export function deactivate() { }
