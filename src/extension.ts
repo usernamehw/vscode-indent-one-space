@@ -32,7 +32,7 @@ function indentOneSpace(isReverse: boolean) {
                 }
 
                 if (!isCramReversed && lines.some(line => line.text[0] !== ' ')) {
-                    vscode.window.showInformationMessage('Cram disabled!');// Dev notification
+                    // vscode.window.showInformationMessage('Cram disabled!');// Dev notification
                     if (isSelectionStartHasCursor) {
                         [start, end] = [end, start];
                     }
