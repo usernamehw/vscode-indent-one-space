@@ -35,7 +35,7 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "",
+            "title": "Indent one space",
             "properties": {
                 "indentOneSpace.workOnSingleLine": {
                     "type": "boolean",
