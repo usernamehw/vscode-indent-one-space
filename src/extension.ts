@@ -2,13 +2,21 @@
 import * as vscode from 'vscode';
 import { ExtensionContext, Position, Range, Selection } from 'vscode';
 
-function indentOneSpace(isReverse: boolean) {
+function isCompleteRange(selection: Selection, firstLine: vscode.TextLine, lastLine: vscode.TextLine): boolean {
+    const selectionStart = firstLine.text.slice(selection.start.character);
+    const selectionEnd = lastLine.text.slice(0, selection.end.character);
+
+    return firstLine.text.trim() === selectionStart.trim() && lastLine.text.trim() === selectionEnd.trim();
+}
+
+function indentOneSpace(isReverse: boolean): void {
     const editor = vscode.window.activeTextEditor;
     if (!editor) return;
 
     const config = vscode.workspace.getConfiguration('indentOneSpace');
     const isWorkOnSingleLine = config.get('workOnSingleLine');
     const isCramReversed = config.get('cramReversed');
+    const isOnlyCompleteRange = config.get('onlyCompleteRange');
     const isOneSelection = editor.selections.length === 1;
     const newSelections: Array<Selection> = [];
 
@@ -22,14 +30,14 @@ function indentOneSpace(isReverse: boolean) {
 
             if (isOneSelection && isSingleLineSelection && !isWorkOnSingleLine) return;
 
+            const lines: Array<vscode.TextLine> = [];
+            for (let i = start.line; i <= end.line; i++) {
+                lines.push(editor.document.lineAt(i));
+            }
+
             if (isReverse) {// Move left
-                const lines: Array<vscode.TextLine> = [];
                 let isStartLineShifted = false;
                 let isEndLineShifted = false;
-
-                for (let i = start.line; i <= end.line; i++) {
-                    lines.push(editor.document.lineAt(i));
-                }
 
                 if (!isCramReversed && lines.some(line => line.text[0] !== ' ')) {
                     // vscode.window.showInformationMessage('Cram disabled!');// Dev notification
@@ -91,6 +99,12 @@ function indentOneSpace(isReverse: boolean) {
                     end.line, newEndChar
                 ));
             } else {// Move right
+                if (isOnlyCompleteRange && !isCompleteRange(selection, lines[0], lines[lines.length - 1])) {
+                    vscode.commands.executeCommand('type', { text: ' ' });
+
+                    return;
+                }
+
                 for (let i = start.line; i <= end.line; i++) {
                     builder.insert(new Position(i, 0), ' ');
                 }
@@ -111,8 +125,8 @@ function indentOneSpace(isReverse: boolean) {
 }
 
 export function activate(context: ExtensionContext) {
-    let disposable1 = vscode.commands.registerCommand('extension.indentOneSpace', indentOneSpace.bind(null, false));
-    let disposable2 = vscode.commands.registerCommand('extension.reverseIndentOneSpace', indentOneSpace.bind(null, true));
+    const disposable1 = vscode.commands.registerCommand('extension.indentOneSpace', indentOneSpace.bind(null, false));
+    const disposable2 = vscode.commands.registerCommand('extension.reverseIndentOneSpace', indentOneSpace.bind(null, true));
 
     context.subscriptions.push(disposable1, disposable2);
 }

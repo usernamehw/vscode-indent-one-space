@@ -46,6 +46,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "TODO: write description"
+                },
+                "indentOneSpace.onlyCompleteRange": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Indent only when range is on either side has only whitespace characters and further - line boundaries"
                 }
             }
         },
