@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.2
+## 0.2.2 (06 Feb 2018)
 - Add new setting for indenting only when the range is completed fixes([#2][i2])
 ## 0.2.1 - No Idea
 ## 0.2.0 (14 Nov 2017)
