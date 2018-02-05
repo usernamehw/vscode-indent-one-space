@@ -9,5 +9,6 @@
     "tslint.autoFixOnSave": [
         "semicolon",
         "indent",
+        "quotemark",
     ]
 }
