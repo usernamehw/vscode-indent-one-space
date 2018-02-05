@@ -18,6 +18,9 @@ You can move selected code left or right with the spacebar key.
 
 ![When cram is off](images/noCram.gif)
 
+* **indentOneSpace.onlyCompleteRange** (default `false`)
+ > indent works only when selection has nothing or whitespace characters on the sides
+
 ## Commands
 
 * **Indent one space** default keybinding <kbd>Space</kbd>
