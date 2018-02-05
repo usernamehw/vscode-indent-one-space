@@ -64,7 +64,7 @@
         "typedef-whitespace": true,
         "typedef": true,
         "indent": [true, "spaces", 4],
-        "no-duplicate-imports": true,
+        "no-duplicate-imports": false,
         "array-type": [true, "generic"],
         "space-before-function-paren": [true, "never"],
         "no-irregular-whitespace": true,
