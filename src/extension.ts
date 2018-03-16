@@ -36,6 +36,11 @@ function indentOneSpace(isReverse: boolean): void {
             }
 
             if (isReverse) {// Move left
+                if (isSingleLineSelection && start.character === end.character &&
+                        lines[0].text.slice(0, selection.start.character).trim() !== '') {
+                    vscode.commands.executeCommand('type', { text: ' ' });
+                    return;
+                }
                 let isStartLineShifted = false;
                 let isEndLineShifted = false;
 
