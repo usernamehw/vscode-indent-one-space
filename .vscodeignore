@@ -10,6 +10,7 @@ tsconfig.json
 vsc-extension-quickstart.md
 package-lock.json
 tslint.json
+.editorconfig
 
 node_modules
 webpack.config.js
