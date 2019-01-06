@@ -11,6 +11,7 @@ vsc-extension-quickstart.md
 package-lock.json
 tslint.json
 .editorconfig
+.npmrc
 
 node_modules
 webpack.config.js
