@@ -2,12 +2,12 @@
 
 You can move selected code left or right with the <kbd>Spacebar</kbd> key.
 
-![Moving left or right with hotkeys](images/demo.gif)
+![Moving left or right with hotkeys](img/demo.gif)
 
 ## Settings
 ```javascript
 "indentOneSpace.workOnSingleLine": true,// Even if 1 character on 1 line is selected - the command will work.
-"indentOneSpace.cramReversed": true,// Outdent lines even if one of them reached column 0 (gutter).
+"indentOneSpace.cramReversed": true,// Outdent lines even if one of them has reached column 0 (gutter).
 "indentOneSpace.onlyCompleteRange": false,// Indent works only when selection has nothing or whitespace characters on the sides
 ```
 

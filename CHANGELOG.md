@@ -1,3 +1,12 @@
+## 0.2.5 `05 Feb 2019`
+
+- 🔨 Reduce the size of `.gif` and improve its quality
+- 🔨 Register TextEditor commands instead of the global ones
+
+## 0.2.4 `06 Jan 2019`
+
+- 🔨 Ignore more files
+
 ## 0.2.3 `06 Jan 2019`
 
 - 🐛 Using `"workOnSingleLine": false,` should type <kbd>Space</kbd> instead of no-op

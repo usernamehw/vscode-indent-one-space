@@ -10,10 +10,7 @@ function isCompleteRange(selection: Selection, firstLine: vscode.TextLine, lastL
 	return firstLine.text.trim() === selectionStart.trim() && lastLine.text.trim() === selectionEnd.trim();
 }
 
-function indentOneSpace(isReverse: boolean): void {
-	const editor = vscode.window.activeTextEditor;
-	if (!editor) return;
-
+function indentOneSpace(isReverse: boolean, editor: vscode.TextEditor): void {
 	const config = vscode.workspace.getConfiguration('indentOneSpace') as any as IConfig;
 	const newSelections: Selection[] = [];
 
@@ -126,11 +123,11 @@ function indentOneSpace(isReverse: boolean): void {
 	editor.selections = newSelections;
 }
 
-export function activate(context: ExtensionContext) {
-	const disposable1 = vscode.commands.registerCommand('extension.indentOneSpace', indentOneSpace.bind(null, false));
-	const disposable2 = vscode.commands.registerCommand('extension.reverseIndentOneSpace', indentOneSpace.bind(null, true));
+export function activate(context: ExtensionContext): void {
+	const indent = vscode.commands.registerTextEditorCommand('extension.indentOneSpace', indentOneSpace.bind(null, false));
+	const outdent = vscode.commands.registerTextEditorCommand('extension.reverseIndentOneSpace', indentOneSpace.bind(null, true));
 
-	context.subscriptions.push(disposable1, disposable2);
+	context.subscriptions.push(indent, outdent);
 }
 
 export function deactivate() { }

@@ -3,6 +3,7 @@
 'use strict';
 
 const path = require('path');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -31,6 +32,9 @@ const config = {
 			}]
 		}]
 	},
+	plugins: [
+		new FriendlyErrorsWebpackPlugin(),
+	]
 }
 
 module.exports = config;

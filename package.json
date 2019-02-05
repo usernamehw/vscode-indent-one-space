@@ -5,7 +5,7 @@
 	"version": "0.2.4",
 	"publisher": "usernamehw",
 	"license": "MIT",
-	"icon": "images/icon.png",
+	"icon": "img/icon.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/usernamehw/vscode-indent-one-space"
@@ -80,11 +80,12 @@
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",
 		"compile": "webpack --mode development",
-		"watch": "webpack --mode development --watch",
+		"watch": "webpack --mode development --watch --display=minimal",
 		"postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"devDependencies": {
 		"@types/node": "^8.10.39",
+		"friendly-errors-webpack-plugin": "^1.7.0",
 		"ts-loader": "^5.3.3",
 		"typescript": "^3.2.2",
 		"vscode": "^1.1.26",
