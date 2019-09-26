@@ -2,7 +2,7 @@
 
 You can move selected code left or right with the <kbd>Spacebar</kbd> key.
 
-![Moving left or right with hotkeys](img/demo.gif)
+![Moving left or right with hotkeys](https://raw.githubusercontent.com/usernamehw/vscode-indent-one-space/master/img/demo.gif)
 
 ## Settings
 ```javascript
