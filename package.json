@@ -84,7 +84,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^8.10.54",
-		"@types/vscode": "^1.26.0",
+		"@types/vscode": "^1.17.0",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"ts-loader": "^6.1.2",
 		"typescript": "^3.6.3",
