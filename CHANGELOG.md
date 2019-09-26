@@ -1,3 +1,7 @@
+## 0.2.6 `26 Sep 2019`
+
+- 🔨 Remove gifs from the extension
+
 ## 0.2.5 `05 Feb 2019`
 
 - 🔨 Reduce the size of `.gif` and improve its quality
