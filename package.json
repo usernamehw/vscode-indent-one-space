@@ -80,16 +80,15 @@
 	"scripts": {
 		"vscode:prepublish": "webpack --mode production",
 		"compile": "webpack --mode development",
-		"watch": "webpack --mode development --watch --display=minimal",
-		"postinstall": "node ./node_modules/vscode/bin/install"
+		"watch": "webpack --mode development --watch --display=minimal"
 	},
 	"devDependencies": {
-		"@types/node": "^8.10.39",
+		"@types/node": "^8.10.54",
+		"@types/vscode": "^1.26.0",
 		"friendly-errors-webpack-plugin": "^1.7.0",
-		"ts-loader": "^5.3.3",
-		"typescript": "^3.2.2",
-		"vscode": "^1.1.26",
-		"webpack": "^4.28.3",
-		"webpack-cli": "^3.2.0"
+		"ts-loader": "^6.1.2",
+		"typescript": "^3.6.3",
+		"webpack": "^4.41.0",
+		"webpack-cli": "^3.3.9"
 	}
 }
