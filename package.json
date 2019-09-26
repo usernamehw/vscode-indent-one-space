@@ -2,7 +2,7 @@
 	"name": "indent-one-space",
 	"displayName": "Indent one space",
 	"description": "Move code to left or right with a distance of one whitespace",
-	"version": "0.2.7",
+	"version": "0.2.5",
 	"publisher": "usernamehw",
 	"license": "MIT",
 	"icon": "img/icon.png",
