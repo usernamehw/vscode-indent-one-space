@@ -1,6 +1,8 @@
 import { commands, ExtensionContext, Position, Range, Selection, TextEditor, TextLine } from 'vscode';
 import { $config } from './extension';
-
+/**
+ * Register all extension commands
+ */
 export function registerAllCommands(context: ExtensionContext) {
 	const indentDisposable = commands.registerTextEditorCommand('extension.indentOneSpace', editor => {
 		indentOneSpace(editor, false);
@@ -11,14 +13,18 @@ export function registerAllCommands(context: ExtensionContext) {
 
 	context.subscriptions.push(indentDisposable, outdentDisposable);
 }
-
+/**
+ * Return true when selection has nothing or spaces on both ends
+ */
 function isCompleteRange(selection: Selection, firstLine: TextLine, lastLine: TextLine): boolean {
 	const selectionStart = firstLine.text.slice(selection.start.character);
 	const selectionEnd = lastLine.text.slice(0, selection.end.character);
 
 	return firstLine.text.trim() === selectionStart.trim() && lastLine.text.trim() === selectionEnd.trim();
 }
-
+/**
+ * Main function of the extension. Indent either right or left
+ */
 function indentOneSpace(editor: TextEditor, isReverse: boolean) {
 	const newSelections: Selection[] = [];
 
