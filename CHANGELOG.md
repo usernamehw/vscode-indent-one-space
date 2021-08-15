@@ -1,3 +1,7 @@
+## 0.2.8 `15 Aug 2021`
+
+- 💄 Lighter color for icon
+
 ## 0.2.7 `15 Aug 2021`
 
 - 🔨 Refactor a bit, upgrade dependencies
