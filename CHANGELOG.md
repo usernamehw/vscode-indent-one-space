@@ -1,3 +1,7 @@
+## 0.3.0 `25 Sep 2022`
+
+- ✨ Check for multiple selections per line [PR#6](https://github.com/usernamehw/vscode-indent-one-space/pull/6) by [@dnicolson](https://github.com/dnicolson)
+
 ## 0.2.8 `15 Aug 2021`
 
 - 💄 Lighter color for icon
