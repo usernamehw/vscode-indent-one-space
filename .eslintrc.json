@@ -37,6 +37,16 @@
 		"@typescript-eslint/explicit-member-accessibility": 0,
 		"@typescript-eslint/func-call-spacing": 1,
 		"@typescript-eslint/generic-type-naming": 0,
+		"@typescript-eslint/naming-convention": [
+			"warn",
+			{
+				"selector": "enumMember",
+				"format": [
+					"PascalCase",
+					"UPPER_CASE"
+				]
+			}
+		],
 		"@typescript-eslint/indent": [1, "tab", {
 			"SwitchCase": 1
 		}],
@@ -50,9 +60,6 @@
 				"delimiter": "semi",
 				"requireLast": false
 			}
-		}],
-		"@typescript-eslint/member-naming": [0, {
-			"private": "^_"
 		}],
 		"@typescript-eslint/member-ordering": 0,
 		"@typescript-eslint/no-array-constructor": 1,
@@ -83,7 +90,7 @@
 		"@typescript-eslint/prefer-for-of": 1,
 		"@typescript-eslint/prefer-includes": 1,
 		"@typescript-eslint/prefer-readonly": 1,
-		"@typescript-eslint/prefer-regexp-exec": 1,
+		"@typescript-eslint/prefer-regexp-exec": 0,
 		"@typescript-eslint/prefer-string-starts-ends-with": 0,
 		"@typescript-eslint/promise-function-async": 1,
 		"@typescript-eslint/require-array-sort-compare": 1,
