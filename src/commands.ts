@@ -26,13 +26,14 @@ function isCompleteRange(selection: Selection, firstLine: TextLine, lastLine: Te
  * Main function of the extension. Indent either right or left
  */
 function indentOneSpace(editor: TextEditor, isReverse: boolean) {
-	const selections = editor.selections.map(selection => selection.start.line);
-	if (selections.length != selections.filter((v, i, a) => a.indexOf(v) === i).length) {
+	// Mutiple selections per line https://github.com/usernamehw/vscode-indent-one-space/pull/6
+	const selectionLines = editor.selections.map(selection => selection.start.line);
+	if (selectionLines.length !== selectionLines.filter((selectionLine, i, arr) => arr.indexOf(selectionLine) === i).length) {
 		commands.executeCommand('type', { text: ' ' });
 		return;
-	};
-
+	}
 	const newSelections: Selection[] = [];
+
 	editor.edit(builder => {
 		for (const selection of editor.selections) {
 			let start = selection.start;
