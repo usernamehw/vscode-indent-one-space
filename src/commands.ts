@@ -26,8 +26,13 @@ function isCompleteRange(selection: Selection, firstLine: TextLine, lastLine: Te
  * Main function of the extension. Indent either right or left
  */
 function indentOneSpace(editor: TextEditor, isReverse: boolean) {
-	const newSelections: Selection[] = [];
+	const selections = editor.selections.map(selection => selection.start.line);
+	if (selections.length != selections.filter((v, i, a) => a.indexOf(v) === i).length) {
+		commands.executeCommand('type', { text: ' ' });
+		return;
+	};
 
+	const newSelections: Selection[] = [];
 	editor.edit(builder => {
 		for (const selection of editor.selections) {
 			let start = selection.start;
