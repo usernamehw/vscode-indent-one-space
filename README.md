@@ -1,3 +1,7 @@
+[![Version](https://img.shields.io/visual-studio-marketplace/v/usernamehw.indent-one-space)](https://marketplace.visualstudio.com/items?itemName=usernamehw.indent-one-space)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/usernamehw.indent-one-space)](https://marketplace.visualstudio.com/items?itemName=usernamehw.indent-one-space)
+[![Rating](https://img.shields.io/visual-studio-marketplace/r/usernamehw.indent-one-space)](https://marketplace.visualstudio.com/items?itemName=usernamehw.indent-one-space)
+
 ## Features
 
 You can move selected code left or right with the <kbd>Spacebar</kbd> key.
