@@ -1,3 +1,7 @@
+## 1.0.0 `07 Feb 2023`
+
+- ✨ Make extension available on the web
+
 ## 0.3.0 `25 Sep 2022`
 
 - ✨ Check for multiple selections per line [PR#6](https://github.com/usernamehw/vscode-indent-one-space/pull/6) by [@dnicolson](https://github.com/dnicolson)
@@ -33,11 +37,11 @@
 
 ## 0.2.2 `06 Feb 2018`
 
-- ✨ New setting for indenting only when the range is completed fixes([#2][i2])
+- ✨ New setting for indenting only when the range is completed fixes #2
 
 ## 0.2.0 `14 Nov 2017`
 
-- 🐛 Don't replace the entire range. Fixes ([#1 Decorations are wobbly][i1])
+- 🐛 Don't replace the entire range. Fixes #1
 
 ## 0.1.0 `13 Nov 2017`
 
@@ -45,7 +49,4 @@
 
 ## 0.0.1 `10 Nov 2017`
 
-- Initial release
-
-[i1]: https://github.com/usernamehw/vscode-indent-one-space/issues/1
-[i2]: https://github.com/usernamehw/vscode-indent-one-space/issues/2
+- 🔨 Initial release
