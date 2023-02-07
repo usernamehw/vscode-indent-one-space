@@ -36,7 +36,8 @@
 		"onCommand:extension.indentOneSpace",
 		"onCommand:extension.reverseIndentOneSpace"
 	],
-	"main": "./dist/extension",
+	"main": "./dist/extension.js",
+	"browser": "./dist/extension.js",
 	"contributes": {
 		"configuration": {
 			"type": "object",
@@ -83,7 +84,7 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "webpack --mode production --color",
+		"vscode:prepublish": "webpack --mode production --color --devtool hidden-source-map",
 		"watch": "webpack --mode development --watch --stats minimal"
 	},
 	"devDependencies": {

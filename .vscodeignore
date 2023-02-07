@@ -17,5 +17,4 @@ tslint.json
 node_modules
 webpack.config.js
 
-LICENSE
 img/demo.gif
